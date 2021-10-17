@@ -1,0 +1,6 @@
+*.js.map
+*.js
+
+dist/
+node_modules/
+coverage/
