@@ -17,7 +17,10 @@
   "scripts": {
     "test": "tsc -b test && jest",
     "test:coverage": "jest --coverage",
-    "build": "tsc -b src"
+    "build": "tsc -b src",
+    "build:scenarios": "tsc -b scenarios",
+    "build:test": "tsc -b scenarios",
+    "build:all": "tsc -b src scenarios test"
   },
   "repository": {
     "type": "git",
