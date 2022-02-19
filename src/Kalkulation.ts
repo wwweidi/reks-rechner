@@ -73,46 +73,59 @@ export class VermoegensWerte {
     }
 }
 
-export interface IDruck {
+export interface IAusgabe {
     getSpalten(): string[];
     getZahlen(jahr: number): number[];
+    printSpalten(): string[];
+    printZahlen(jahr: number): string[];
 }
 
-export interface IKnoten extends IKalkulationsSchema, IDruck {
+export interface IKnoten extends IKalkulationsSchema, IAusgabe {
 
     getKnoten(): Set<IKnoten>;
 }
 
-export class LeererKnoten implements IKnoten {
-    getKnoten(): Set<IKnoten> {
-        return new Set();
-    }
-
-    getSteuerWerte(_jahr: number): SteuerWerte {
-        return new SteuerWerte();
-    }
-    getVermoegensWerte(_jahr: number): VermoegensWerte {
-        return new VermoegensWerte();
-    }
-    getSpalten(): string[] {
-        return ["Ohne"];
-    }
-    getZahlen(_jahr: number): number[] {
-        return [0];
-    }
-}
-
-export class Knoten implements IKnoten {
-    name: string;
+export abstract class GenerischerKnoten implements IKnoten {
     knoten: Set<IKnoten> = new Set();
-
-    constructor(name: string) {
+    name: string;
+    
+    /**
+     * 
+     * @param name Bezeichnung des Knoten
+     */
+    constructor(name: string = '') {
         this.name = name;
     }
 
-    getKnoten() {
+    getKnoten(): Set<IKnoten> {
         return this.knoten;
     }
+
+    abstract getSteuerWerte(jahr: number): SteuerWerte ;
+    abstract getVermoegensWerte(jahr: number): VermoegensWerte;
+    abstract getSpalten(): string[];
+    abstract getZahlen(jahr: number): number[];
+    
+    printSpalten(): string[] {
+
+        let names: string[] = this.getSpalten();
+        for (let k of this.getKnoten()) {
+            names = names.concat(k.printSpalten())
+        }
+        return names;
+    }
+    
+    printZahlen(jahr: number): string[] {
+    
+        let numbers: string[] = this.getZahlen(jahr).map(value => (value / 12).toFixed(0));
+        for (let k of this.getKnoten()) {
+            numbers = numbers.concat(k.printZahlen(jahr));
+        }
+        return numbers;
+    }
+}
+
+export class Knoten extends GenerischerKnoten {
 
     getSpalten(): string[] {
         return ["Einnahmen", "Ausgaben", "Verfügbar", "Abgezinst"]
@@ -144,6 +157,12 @@ export class Knoten implements IKnoten {
         return steuerWerte;
     }
 
+    /**
+     * Blatt zur Liste hinzufügen
+     * 
+     * @param blatt 
+     * @returns this
+     */
     addKnoten(blatt: IKnoten) {
         this.knoten.add(blatt);
         return this;
@@ -155,4 +174,22 @@ export class Knoten implements IKnoten {
     }
 }
 
+export class LeererKnoten extends GenerischerKnoten {
 
+    getKnoten(): Set<IKnoten> {
+        return new Set();
+    }
+
+    getSteuerWerte(_jahr: number): SteuerWerte {
+        return new SteuerWerte();
+    }
+    getVermoegensWerte(_jahr: number): VermoegensWerte {
+        return new VermoegensWerte();
+    }
+    getSpalten(): string[] {
+        return ["Ohne"];
+    }
+    getZahlen(_jahr: number): number[] {
+        return [0];
+    }
+}

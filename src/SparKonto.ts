@@ -1,4 +1,4 @@
-import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "./Kalkulation";
+import { IJahresWert } from "./Kalkulation";
 import { JahresReihe } from "./Reihen";
 
 export class SparKonto {

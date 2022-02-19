@@ -36,6 +36,19 @@ describe('Reihen', () => {
             expect(jr.getWertFuerJahr(2000)).toBe(2000);
         })
 
+        test('constructor mit Object', () => {
+            let m = {
+                2019: 0.22,
+                2020: 0.2,
+                2021: 0.19,
+                2022: 0.18
+            };
+
+            let jr = new JahresReihe(m);
+            expect(jr.getWertFuerJahr(2020)).toBe(0.2);
+
+        })
+
         test('setWertFuerJahr', () => {
             let jr = new JahresReihe();
 

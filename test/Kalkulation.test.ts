@@ -1,4 +1,4 @@
-import { IKnoten, Knoten, SteuerWerte,  VermoegensWerte } from "../dist/Kalkulation";
+import { IKnoten, Knoten, GenerischerKnoten, SteuerWerte,  VermoegensWerte } from "../dist/Kalkulation";
 
 describe('Knoten', () => {
 
@@ -20,7 +20,7 @@ describe('Knoten', () => {
 
     test('getVermoegenswerte mit blatt', () => {
         let k = new Knoten("baum");
-        let b = new TestBlatt();
+        let b = new TestBlatt("blatt");
         k.addKnoten(b);
 
         let vw = k.getVermoegensWerte(1);
@@ -58,7 +58,7 @@ describe('Knoten', () => {
     })
 })
 
-export class TestBlatt implements IKnoten {
+export class TestBlatt extends GenerischerKnoten {
     getKnoten(): Set<IKnoten> {
         return new Set();
     }
