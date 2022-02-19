@@ -26,11 +26,15 @@ export class LineareDynamik implements IJahresWert {
     }
 }
 
+interface JahresIndex {
+    [jahr:number]: number;
+}
+
 export class JahresReihe implements IJahresWert {
 
-    jahresWert: number[];
+    jahresWert: JahresIndex;
 
-    constructor(reihe: number[] = []) {
+    constructor(reihe: JahresIndex = []) {
         this.jahresWert = reihe;
     }
 

@@ -3,6 +3,12 @@ import { Knoten, SteuerWerte, VermoegensWerte } from "./Kalkulation";
 export class EinkommenSteuer extends Knoten {
     splitting: boolean;
 
+    /**
+     * Knoten zur Berechnung der Einkommensteuer
+     * 
+     * @param name @see Knoten
+     * @param splitting Ehegattensplitting / Zusammenveranlagung [true|false]
+     */
     constructor(name: string, splitting: boolean = false) {
         super(name);
         this.splitting = splitting;
