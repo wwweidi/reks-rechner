@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1,minimal-ui" name="viewport">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/vue-material.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/vue-material/dist/theme/default.css">
+</head>
+
+<body>
+    <div id="app">
+        <md-app>
+            <md-app-toolbar class="md-primary">
+
+                <span class="md-title">REKSi rechnet</span>
+            </md-app-toolbar>
+
+            <md-app-content>
+                Neue Berechnung
+                <md-button class="md-fab md-primary">
+                    <md-icon>add</md-icon>
+                </md-button>
+
+                <md-card class="md-layout-item md-size-50 md-small-size-100">
+                    <md-card-header>
+                        <div class="md-title">Haushalt</div>
+                    </md-card-header>
+
+                    <md-card-content>
+                        <div class="md-layout-item md-small-size-100">
+                            <md-field >
+                                <label for="haushalt-name">Name</label>
+                                <md-input name="haushalt-name" id="haushalt-name" autocomplete="haushalt-name"
+                                    <!-- v-model="form.lastName" :disabled="sending" /> -->
+                                <span class="md-error" v-if="!$v.form.lastName.required">The last name is
+                                    required</span>
+                                <span class="md-error" v-else-if="!$v.form.lastName.minlength">Invalid last name</span>
+                            </md-field>
+                        </div>
+                    </md-card-content>
+
+            </md-app-content>
+        </md-app>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-material"></script>
+    <script>
+        Vue.use(VueMaterial.default)
+
+        new Vue({
+            el: '#app',
+            data: {}
+        })
+    </script>
+</body>
+
+</html>
