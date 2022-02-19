@@ -7,7 +7,9 @@
     "test": "test"
   },
   "dependencies": {
-    "@types/jquery": "^3.5.5"
+    "@types/jquery": "^3.5.5",
+    "csvjson-csv2json": "^5.0.6",
+    "csvtojson": "^2.0.10"
   },
   "devDependencies": {
     "@types/jest": "^22",
@@ -17,7 +19,11 @@
   "scripts": {
     "test": "tsc -b test && jest",
     "test:coverage": "jest --coverage",
-    "build": "tsc -b src"
+    "build": "tsc -b src",
+    "build:scenarios": "tsc -b scenarios",
+    "build:test": "tsc -b scenarios",
+    "build:all": "tsc -b src scenarios test",
+    "convertcsv": "node convertcsv2json.js > src/GesetzlJahresWerte.json"
   },
   "repository": {
     "type": "git",
