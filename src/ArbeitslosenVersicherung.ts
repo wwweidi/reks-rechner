@@ -1,10 +1,20 @@
 import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "./Kalkulation";
 
+/**
+ * Arbeitslosenversicherung
+ */
 export class ArbeitslosenVersicherung extends Knoten {
     brutto: IJahresWert;
     arbeitnehmerAnteil: IJahresWert;
     beitragsBemessungsGrenze: IJahresWert;
 
+    /**
+     * 
+     * @param name Name des Knotens
+     * @param brutto Jahresreihe des Bruttoeinkommens
+     * @param arbeitnehmerAnteil Jahresreihe des Arbeitnehmeranteils an der ALV als Faktor
+     * @param beitragsBemessungsGrenze Jahresreihe der Beitragsbemessungsgrenze, bis zu deren Höhe die ALV berechnet wird
+     */
     constructor(name: string, brutto: IJahresWert, arbeitnehmerAnteil: IJahresWert, beitragsBemessungsGrenze: IJahresWert) {
         super(name);
         this.brutto = brutto;
@@ -12,17 +22,19 @@ export class ArbeitslosenVersicherung extends Knoten {
         this.beitragsBemessungsGrenze = beitragsBemessungsGrenze
     }
 
+    getEinkommenBisBBG(jahr: number): number {
+        return Math.min(this.brutto.getWertFuerJahr(jahr), this.beitragsBemessungsGrenze.getWertFuerJahr(jahr));
+    }
+
     getSteuerWerte(jahr: number): SteuerWerte {
         let sw = new SteuerWerte();
-        const einkommen = Math.min(this.brutto.getWertFuerJahr(jahr), this.beitragsBemessungsGrenze.getWertFuerJahr(jahr));
-        sw.basisKrankenPflegeVersicherungen = einkommen * this.arbeitnehmerAnteil.getWertFuerJahr(jahr);
+        sw.basisKrankenPflegeVersicherungen = this.getEinkommenBisBBG(jahr) * this.arbeitnehmerAnteil.getWertFuerJahr(jahr);
         return sw;
     }
 
     getVermoegensWerte(jahr: number) {
         let vw = new VermoegensWerte();
-        const einkommen = Math.min(this.brutto.getWertFuerJahr(jahr), this.beitragsBemessungsGrenze.getWertFuerJahr(jahr));
-        vw.ausgaben = einkommen * this.arbeitnehmerAnteil.getWertFuerJahr(jahr);
+        vw.ausgaben = this.getEinkommenBisBBG(jahr) * this.arbeitnehmerAnteil.getWertFuerJahr(jahr);
         return vw;
     }
 
