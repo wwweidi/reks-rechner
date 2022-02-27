@@ -1,4 +1,4 @@
-import { JahresReihe, KombinierteWerte, LineareDynamik, Periode } from "../dist/Reihen";
+import { JahresReihe, KombinierteWerte, LineareDynamik, Periode } from "../src/Reihen";
 
 describe('Reihen', () => {
 

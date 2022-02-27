@@ -39,16 +39,28 @@ export const rentenfreibetrag = new Map([
     [2040, 0],
 ]);
 
+/**
+ * Gesetzliche Rente
+ * 
+ * @extends Knoten
+ */
 export class GesetzlicheRente extends Knoten implements IJahresWert {
     rentenPunkte: number;
     rentenWerte: IJahresWert;
     rentenFreibetrag: number = 0;
 
-    constructor(name: string, rentenPunkte: number, rentenWerte: IJahresWert, startJahr: number) {
+    /**
+     * 
+     * @param name @inheritdoc
+     * @param rentenPunkte bereits gesammelte Summe der Rentenpunkte
+     * @param rentenWerte Jahresreihe der zu erwartenden Rentenwerte (pro Rentenpunkt)
+     * @param rentenBeginn Jahr des Rentenbeginns zur Berechnung des steuerlichen Freibetrags
+     */
+    constructor(name: string, rentenPunkte: number, rentenWerte: IJahresWert, rentenBeginn: number) {
         super(name);
         this.rentenPunkte = rentenPunkte;
         this.rentenWerte = rentenWerte;
-        this.rentenFreibetrag = this.berechneRentenFreibetrag(startJahr);
+        this.rentenFreibetrag = this.berechneRentenFreibetrag(rentenBeginn);
     }
     getWertFuerJahr(jahr: number): number {
         return this.getRente(jahr);
@@ -70,8 +82,8 @@ export class GesetzlicheRente extends Knoten implements IJahresWert {
         return vw;
     }
 
-    berechneRentenFreibetrag(startJahr: number): number {
-        return this.getRente(startJahr) * (rentenfreibetrag.get(startJahr) || 0);
+    berechneRentenFreibetrag(rentenBeginn: number): number {
+        return this.getRente(rentenBeginn) * (rentenfreibetrag.get(rentenBeginn) || 0);
     }
 
     getSpalten() {

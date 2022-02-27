@@ -1,14 +1,24 @@
 import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "./Kalkulation";
 
+/**
+ * Brutto-Gehalt
+ */
 export class BruttoGehalt extends Knoten implements IJahresWert {
     brutto: IJahresWert;
     werbungskosten: IJahresWert;
 
+    /**
+     * 
+     * @param name @inheritdoc
+     * @param brutto Jahresreihe des Brutto-Einkommens
+     * @param werbungskosten Jahresreihe der Werbungskosten
+     */
     constructor(name: string, brutto: IJahresWert, werbungskosten: IJahresWert) {
         super(name);
         this.brutto = brutto;
         this.werbungskosten = werbungskosten;
     }
+    
     getWertFuerJahr(jahr: number): number {
         return this.brutto.getWertFuerJahr(jahr);
     }

@@ -1,5 +1,5 @@
-import { ArbeitslosenVersicherung} from "../dist/ArbeitslosenVersicherung";
-import { JahresReihe, Periode } from "../dist/Reihen";
+import { ArbeitslosenVersicherung} from "../src/ArbeitslosenVersicherung";
+import { JahresReihe, Periode } from "../src/Reihen";
 
 describe('ALV', ()=>{
 

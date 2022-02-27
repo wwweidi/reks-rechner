@@ -1,17 +1,6 @@
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
     "verbose": true,
-    "testEnvironment": "node",
-    "roots": [
-        "<rootDir>/src",
-        "<rootDir>/test"
-    ],
-    "testMatch": [
-        "**/test/**/*.+(js)",
-        "**/?(*.)+(spec|test).+(ts)"
-    ],
-    "globals": {
-        "ts-jest": {
-            "tsconfig": "./test/tsconfig.json"
-        }
-    }
+    "preset": 'ts-jest',
+    "testEnvironment": "node"
 }

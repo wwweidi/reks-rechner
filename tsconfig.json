@@ -1,0 +1,12 @@
+{
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs", //commonjs, amd
+      "sourceMap": false,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "moduleResolution": "node"
+    }
+}

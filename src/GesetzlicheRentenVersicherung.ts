@@ -16,12 +16,23 @@ const beitragsbememessungsgrenze = [
     [2021, 85200],
 ]
 
+/**
+ * Gesetzliche Rentenversicherung
+ */
 export class GesetzlRentenVersicherung extends Knoten {
     brutto: IJahresWert;
     rentenVersProzent: IJahresWert;
     beitragsBemessungsGrenze: IJahresWert;
     durchschnittsEntgelte: IJahresWert;
 
+    /**
+     * 
+     * @param name @inheritdoc
+     * @param brutto Jahresreihe des Brutto-Einkommens
+     * @param arbeitnehmerAnteil Jahresreihe des Arbeitnehmeranteils an der GRV in % 
+     * @param beitragsBemessungsGrenze Jahresreihe der Beitragsbemessungsgrenze 
+     * @param durchschnittsEntgelte Jahresreihe der Durchschnittsentgelte zur Berechnung der erzielten Rentenpunkte
+     */
     constructor(name: string, brutto: IJahresWert, arbeitnehmerAnteil: IJahresWert, beitragsBemessungsGrenze: IJahresWert,durchschnittsEntgelte: IJahresWert ) {
         super(name);
         this.brutto = brutto;

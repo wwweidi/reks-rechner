@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TypeScript for the web</title>
+</head>
+<body>
+    <script " src="./require.js"></script>
+
+    <script>
+        
+        require(['script/Kalkulation'], function(Kalkulation) {
+            console.log('yeah');
+            
+            let k = new Kalkulation.Knoten("Putin");
+            console.log(k)
+        })
+    </script>
+</body>
+</html>
