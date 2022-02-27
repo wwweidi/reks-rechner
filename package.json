@@ -20,10 +20,8 @@
     "clean": "tsc --build --clean",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "build": "tsc -b src",
-    "build:scenarios": "tsc -b scenarios",
-    "build:test": "tsc -b scenarios",
-    "build:all": "tsc -b src scenarios test",
+    "build": "tsc",
+    "build:ui": "tsc -p tsconfig-ui.json",    
     "exec:beispiel": "ts-node scenarios/beispiel.ts"
   },
   "repository": {

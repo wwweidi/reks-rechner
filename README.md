@@ -27,3 +27,48 @@ Die einzelnen Bausteine gliedern sich in
 - Sozialversicherungsabgaben (gesetzl. Rentenversicherung, Pflegeversicherung, Arbeitslosenversicherung, Krankenversicherung)
 - Steuern
 
+## Kompilieren & Testen
+
+### Für NodeJS kompilieren
+Um alles für NodeJS zu kompilieren, führt man 
+> `$ tsc`
+
+oder 
+> `$ npm run build`
+
+im root-Verzeichnis aus.
+
+### Für Browser kompilieren
+Um alles für die Browser-Umgebung zu kompilieren, führt man 
+> `$ tsc -p tsconfig-ui.json`
+
+oder 
+> `$ npm run build:ui`
+
+aus.
+
+Dann wird `AMD` als Module-System genutzt und die js-Files werden in `./ui/script/` abgelegt.
+
+### Tests
+Tests werden per
+> `$ jest`
+
+oder 
+> `$ npm run test`
+
+bzw.
+> `$ npm run test:coverage ` //mit Code Coverage
+
+ausgeführt.
+
+### Beispiel-Szenario
+Im `scenarios` Verzeichnis liegt ein Beispiel-Skript.
+Es kann mit 
+
+>`$ ts-node scenarios\beispiel.ts`
+
+oder 
+
+>`$ npm run exec:beispiel`
+
+ ausgeführt werden. Die Ergebnisse werden auf der console ausgegeben.
