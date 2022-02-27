@@ -1,7 +1,7 @@
 import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "./Kalkulation";
 
 /** 
-Gesetzliche Krankenversicherung für Angestellte
+* Gesetzliche Krankenversicherung für Angestellte
 **/
 export class GKV extends Knoten {
     brutto: IJahresWert;
@@ -9,6 +9,13 @@ export class GKV extends Knoten {
     beitragsBemessungsGrenze: IJahresWert;
     static pauschalerAbzug: number = 0.04; // 4% 
 
+    /**
+     * 
+     * @param name @inheritdoc
+     * @param brutto Jahresreihe des Brutto-Einkommens
+     * @param arbeitnehmerAnteil Jahresreihe des AN-Anteils an der GKV in %
+     * @param beitragsBemessungsGrenze Jahresreihe der Beitragsbemessungsgrenze für die GKV 
+     */
     constructor(name: string, brutto: IJahresWert, arbeitnehmerAnteil: IJahresWert, beitragsBemessungsGrenze: IJahresWert) {
         super(name);
         this.brutto = brutto;
@@ -40,8 +47,12 @@ export class GKV extends Knoten {
 }
 
 /** 
-Freiwillige Gesetzliche Krankenversicherung für Beamte
+* Freiwillige Gesetzliche Krankenversicherung für Beamte
 **/
 export class GKVBeamte extends GKV {
     static pauschalerAbzug: number = 0.5; // nur hälftige Abziehbarkeit?
+
+    getSpalten() {
+        return ["GKV Beamte"];
+    }
 }

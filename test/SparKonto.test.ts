@@ -1,5 +1,5 @@
-import { SparKonto } from "../dist/SparKonto";
-import { JahresReihe } from "../dist/Reihen";
+import { SparKonto } from "../src/SparKonto";
+import { JahresReihe } from "../src/Reihen";
 
 describe('SparKonto', () => {
 

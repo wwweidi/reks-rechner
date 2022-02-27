@@ -1,4 +1,4 @@
-import { IKnoten, Knoten, GenerischerKnoten, SteuerWerte,  VermoegensWerte } from "../dist/Kalkulation";
+import { IKnoten, Knoten, GenerischerKnoten, SteuerWerte,  VermoegensWerte } from "../src/Kalkulation";
 
 describe('Knoten', () => {
 
@@ -20,7 +20,7 @@ describe('Knoten', () => {
 
     test('getVermoegenswerte mit blatt', () => {
         let k = new Knoten("baum");
-        let b = new TestBlatt("blatt");
+        let b = new TestBlatt();
         k.addKnoten(b);
 
         let vw = k.getVermoegensWerte(1);

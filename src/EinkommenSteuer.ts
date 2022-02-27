@@ -1,10 +1,13 @@
 import { Knoten, SteuerWerte, VermoegensWerte } from "./Kalkulation";
 
+/**
+ * Knoten zur Berechnung der Einkommensteuer
+ */
 export class EinkommenSteuer extends Knoten {
     splitting: boolean;
 
     /**
-     * Knoten zur Berechnung der Einkommensteuer
+     * Berechnung der Einkommensteuer
      * 
      * @param name @see Knoten
      * @param splitting Ehegattensplitting / Zusammenveranlagung [true|false]

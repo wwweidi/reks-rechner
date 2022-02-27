@@ -1,0 +1,12 @@
+{
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "amd", //commonjs, amd
+      "sourceMap": false,
+      "outDir": "./ui/script",
+      "rootDir": "./src",
+      "moduleResolution": "node"
+    }
+}
