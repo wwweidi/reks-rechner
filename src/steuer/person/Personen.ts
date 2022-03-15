@@ -1,4 +1,4 @@
-import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "./Kalkulation";
+import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "../../base/Kalkulation";
 
 export class Person extends Knoten {
     geburtsjahr: number;

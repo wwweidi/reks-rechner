@@ -1,5 +1,5 @@
-import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "./Kalkulation";
-import { LineareDynamik } from "./Reihen";
+import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "../../../base/Kalkulation";
+import { LineareDynamik } from "../../../base/Reihen";
 
 /** 
  * Private Krankenversicherung 

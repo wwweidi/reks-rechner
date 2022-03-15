@@ -1,5 +1,5 @@
-import { LeererKnoten } from "../src/Kalkulation";
-import { VariantenWeiche, VariantenVergleich } from "../src/Varianten";
+import { LeererKnoten } from "./Kalkulation";
+import { VariantenWeiche, VariantenVergleich } from "./Varianten";
 import { TestBlatt } from "./Kalkulation.test";
 
 describe('VariantenWeiche', () => {

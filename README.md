@@ -62,12 +62,8 @@ bzw.
 ausgeführt.
 
 ### Beispiel-Szenario
-Im `scenarios` Verzeichnis liegt ein Beispiel-Skript.
+Im `src/scenarios` Verzeichnis liegt ein Beispiel-Skript.
 Es kann mit 
-
->`$ ts-node scenarios\beispiel.ts`
-
-oder 
 
 >`$ npm run exec:beispiel`
 

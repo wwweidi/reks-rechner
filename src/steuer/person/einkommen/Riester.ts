@@ -1,8 +1,8 @@
-import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "./Kalkulation";
-import { LeibRente } from "./LeibRente";
-import { Kind } from "./Personen";
-import { JahresReihe, LineareDynamik, Periode } from "./Reihen";
-import { SparKonto } from "./SparKonto";
+import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "../../../base/Kalkulation";
+import { LeibRente } from "../../../base/LeibRente";
+import { Kind } from "../Personen";
+import { JahresReihe, LineareDynamik, Periode } from "../../../base/Reihen";
+import { SparKonto } from "../../../base/SparKonto";
 
 /***
  * 
@@ -78,7 +78,7 @@ export class Riester extends Knoten {
 
         let zulagen = 175;
 
-        for (let k of this.kinder) {
+        for (let k of Array.from(this.kinder.values())) {
             if (jahr <= k.kindergeldEndeJahr) {
                 if (k.geburtsjahr >= 2008) {
                     zulagen += 300;

@@ -1,4 +1,4 @@
-import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "./Kalkulation";
+import { SteuerWerte, VermoegensWerte, Knoten, IJahresWert } from "../../../base/Kalkulation";
 
 export class Pension extends Knoten implements IJahresWert {
 
