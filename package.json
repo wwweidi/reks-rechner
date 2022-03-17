@@ -12,6 +12,7 @@
   "devDependencies": {
     "@types/jest": "27.4.1",
     "jest": "27.5.1",
+    "jsdoc": "~3.6.10",
     "ts-jest": "27.1.3",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
@@ -21,7 +22,8 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "build": "tsc",
-    "build:ui": "tsc -p tsconfig-ui.json",    
+    "build:ui": "tsc -p tsconfig-ui.json",
+    "doc": "jsdoc dist -d ./doc/ -r",
     "exec:beispiel": "ts-node src/scenarios/beispiel.ts"
   },
   "repository": {
