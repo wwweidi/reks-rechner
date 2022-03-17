@@ -9,7 +9,6 @@ export interface IJahresWert {
 
 export class SteuerWerte {
     einnahmen: number = 0;
-    grundfreibetraege = 0;
     werbungskosten: number = 0;
     sonderausgaben: number = 0;
     basisKrankenPflegeVersicherungen: number = 0;
@@ -22,7 +21,6 @@ export class SteuerWerte {
 
     addiereWerte(werte: SteuerWerte) {
         this.einnahmen += werte.einnahmen;
-        this.grundfreibetraege += werte.grundfreibetraege;
         this.werbungskosten += werte.werbungskosten;
         this.sonderausgaben += werte.sonderausgaben;
         /** kv 
