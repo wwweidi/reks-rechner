@@ -1,5 +1,5 @@
-import { LeibRente } from "../src/LeibRente";
-import { JahresReihe, Periode } from "../src/Reihen";
+import { LeibRente } from "./LeibRente";
+import { JahresReihe, Periode } from "./Reihen";
 
 describe('LeibRente', () => {
 

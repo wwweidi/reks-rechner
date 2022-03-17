@@ -1,5 +1,5 @@
-import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "./Kalkulation";
-import { Periode } from "./Reihen";
+import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "../../../base/Kalkulation";
+import { Periode } from "../../../base/Reihen";
 
 const durchschnittsEntgelte = [
     [2017, 37077],

@@ -22,7 +22,7 @@
     "test:coverage": "jest --coverage",
     "build": "tsc",
     "build:ui": "tsc -p tsconfig-ui.json",    
-    "exec:beispiel": "ts-node scenarios/beispiel.ts"
+    "exec:beispiel": "ts-node src/scenarios/beispiel.ts"
   },
   "repository": {
     "type": "git",

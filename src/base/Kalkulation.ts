@@ -82,7 +82,7 @@ export interface IAusgabe {
 
 export interface IKnoten extends IKalkulationsSchema, IAusgabe {
 
-    getKnoten(): Set<IKnoten>;
+    getKnoten(): IKnoten[];
 }
 
 export abstract class GenerischerKnoten implements IKnoten {
@@ -97,8 +97,8 @@ export abstract class GenerischerKnoten implements IKnoten {
         this.name = name;
     }
 
-    getKnoten(): Set<IKnoten> {
-        return this.knoten;
+    getKnoten(): IKnoten[] {
+        return Array.from(this.knoten.values());
     }
 
     abstract getSteuerWerte(jahr: number): SteuerWerte ;
@@ -142,7 +142,7 @@ export class Knoten extends GenerischerKnoten {
     getVermoegensWerte(jahr: number): VermoegensWerte {
         let vermoegensWerte = new VermoegensWerte();
 
-        for (let blatt of this.knoten) {
+        for (let blatt of this.getKnoten()) {
             vermoegensWerte.addiereWerte(blatt.getVermoegensWerte(jahr));
         }
         return vermoegensWerte;
@@ -151,7 +151,7 @@ export class Knoten extends GenerischerKnoten {
     getSteuerWerte(jahr: number): SteuerWerte {
         let steuerWerte = new SteuerWerte();
 
-        for (let blatt of this.knoten) {
+        for (let blatt of this.getKnoten()) {
             steuerWerte.addiereWerte(blatt.getSteuerWerte(jahr));
         }
         return steuerWerte;
@@ -176,8 +176,8 @@ export class Knoten extends GenerischerKnoten {
 
 export class LeererKnoten extends GenerischerKnoten {
 
-    getKnoten(): Set<IKnoten> {
-        return new Set();
+    getKnoten(): IKnoten[] {
+        return new Array();
     }
 
     getSteuerWerte(_jahr: number): SteuerWerte {

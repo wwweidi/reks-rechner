@@ -2,5 +2,6 @@
 module.exports = {
     "verbose": true,
     "preset": 'ts-jest',
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testMatch": ["**/?(*.)+(spec|test).ts?(x)" ]
 }

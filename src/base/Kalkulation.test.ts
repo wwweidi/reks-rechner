@@ -1,4 +1,4 @@
-import { IKnoten, Knoten, GenerischerKnoten, SteuerWerte,  VermoegensWerte } from "../src/Kalkulation";
+import { IKnoten, Knoten, GenerischerKnoten, SteuerWerte,  VermoegensWerte } from "./Kalkulation";
 
 describe('Knoten', () => {
 
@@ -59,8 +59,8 @@ describe('Knoten', () => {
 })
 
 export class TestBlatt extends GenerischerKnoten {
-    getKnoten(): Set<IKnoten> {
-        return new Set();
+    getKnoten(): IKnoten[] {
+        return new Array();
     }
 
     getSteuerWerte(jahr: number): SteuerWerte {

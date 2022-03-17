@@ -1,6 +1,6 @@
-import { Riester } from "../src/Riester";
-import { JahresReihe, Periode, LineareDynamik } from "../src/Reihen";
-import { Kind } from "../src/Personen";
+import { Riester } from "./Riester";
+import { JahresReihe, Periode, LineareDynamik } from "../../../base/Reihen";
+import { Kind } from "../Personen";
 
 describe('Riester', () => {
 

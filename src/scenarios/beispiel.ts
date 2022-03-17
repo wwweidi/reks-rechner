@@ -1,19 +1,30 @@
-import { IKnoten, Knoten, SteuerWerte,  VermoegensWerte } from "../dist/Kalkulation";
-import { EinkommenSteuer } from "../dist/EinkommenSteuer";
-import { Person  } from "../dist/Personen";
-import { Periode, JahresReihe, LineareDynamik, KombinierteWerte  } from "../dist/Reihen";
-import { BruttoGehalt } from "../dist/Gehalt";
-import { PflegeVersicherung } from "../dist/PflegeVersicherung";
-import { GesetzlRentenVersicherung } from "../dist/GesetzlicheRentenVersicherung";
-import { GKV } from "../dist/GesetzlicheKrankenVersicherung";
-import { GesetzlicheRente, rentenWerteOst } from "../dist/GesetzlicheRente";
+import { IKnoten, Knoten, SteuerWerte,  VermoegensWerte } from "../base/Kalkulation";
+import { EinkommenSteuer, FuenfZonenTarif } from "../steuer/EinkommenSteuer";
+import { Person  } from "../steuer/person/Personen";
+import { Periode, JahresReihe, LineareDynamik, KombinierteWerte  } from "../base/Reihen";
+import { BruttoGehalt } from "../steuer/person/einkommen/Gehalt";
+import { PflegeVersicherung } from "../steuer/person/einkommen/PflegeVersicherung";
+import { GesetzlRentenVersicherung } from "../steuer/person/einkommen/GesetzlicheRentenVersicherung";
+import { GKV } from "../steuer/person/einkommen/GesetzlicheKrankenVersicherung";
+import { GesetzlicheRente, rentenWerteOst } from "../steuer/person/einkommen/GesetzlicheRente";
 
 // Generischer Knoten als Wurzel des Baumes
 const familie = new Knoten('Mustermann');
 
 // diesem folgt die Berechnung der Einkommensteuer, da dies fast alle Werte benötigt  
+const p = new Periode(2020, 2060)
+const grundfreibetrag = JahresReihe.konstanteReihe(p, 9408);
+const stufe2 = JahresReihe.konstanteReihe(p, 14532);
+const stufe3 = JahresReihe.konstanteReihe(p, 57051);
+const stufe4 = JahresReihe.konstanteReihe(p, 270500);
+const eingangssatz = JahresReihe.konstanteReihe(p, 0.14);
+const linProgSatz2 = JahresReihe.konstanteReihe(p, 0.2397);
+const linProgSatz3 = JahresReihe.konstanteReihe(p, 0.42);
+const linSatz4 = JahresReihe.konstanteReihe(p, 0.45);
+
+const grundTarif = new FuenfZonenTarif(grundfreibetrag, stufe2, stufe3, stufe4, eingangssatz, linProgSatz2, linProgSatz3, linSatz4 );
 // Zusammenveranlagung auf 'true' gesetzt
-const einkommensteuer = new EinkommenSteuer('Zusammenveranlagung', true);
+const einkommensteuer = new EinkommenSteuer('Zusammenveranlagung', grundTarif, true);
 familie.addKnoten(einkommensteuer);
 
 //   Väterliches Elternteil als Person, mit Geburtsjahr
