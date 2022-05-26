@@ -1,4 +1,5 @@
 import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "../../base/Kalkulation";
+import { Periode } from "../../base/Reihen";
 
 export class Person extends Knoten {
     geburtsjahr: number;
@@ -6,6 +7,39 @@ export class Person extends Knoten {
     constructor(name: string, geburtsjahr: number) {
         super(name);
         this.geburtsjahr = geburtsjahr;
+    }
+
+    static getRegulaeresRenteneintrittsalter(geburtsjahr: number): number {
+
+        if ( geburtsjahr < 1947) {
+            return 65;
+        } else if (geburtsjahr < 1961) { //gerundet, da hier nur auf Jahresebene gerechnet wird
+            return 66;
+        } else {
+            return 67;
+        }
+    }
+
+    private getAktuellesJahr(): number {
+        return new Date().getFullYear();
+    }
+
+    getAlter(): number {
+        return this.getAktuellesJahr() - this.geburtsjahr;
+    }
+
+    private getRestLebensErwartung(): number {
+        return Math.round(this.getAlter()/20 + Math.max(85, this.getAlter()));
+    }
+
+    getRestArbeitsPeriode(): Periode {
+        let rentenAlter = Person.getRegulaeresRenteneintrittsalter(this.geburtsjahr);
+        return new Periode(this.getAktuellesJahr(), this.geburtsjahr + rentenAlter);
+    }
+
+    getRestLebensPeriode(): Periode{
+        const aktuellesJahr = new Date().getFullYear();
+        return new Periode(aktuellesJahr, aktuellesJahr + this.getRestLebensErwartung() )
     }
 }
 

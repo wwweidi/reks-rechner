@@ -1,6 +1,6 @@
 import { JahresReihe, KombinierteWerte, LineareDynamik, Periode } from "./Reihen";
 
-describe('Reihen', () => {
+describe('Periode', () => {
 
     test('Periode - constructor', () => {
         let p = new Periode(1, 2);
@@ -8,6 +8,29 @@ describe('Reihen', () => {
         expect(p.startJahr).toBe(1);
         expect(p.endeJahr).toBe(2);
     })
+
+    test('Periode - maximum', ()=> {
+
+        let p1 = new Periode(1, 2);
+        let p2 = new Periode(2, 3);
+
+        let pMax = Periode.maximum(p1, p2);
+
+        expect(pMax.startJahr).toBe(1);
+        expect(pMax.endeJahr).toBe(3);
+
+        p1 = new Periode(2, 3);
+        p2 = new Periode(1, 3);
+
+        pMax = Periode.maximum(p1, p2);
+
+        expect(pMax.startJahr).toBe(1);
+        expect(pMax.endeJahr).toBe(3);
+    })
+
+})
+
+describe('Reihen', () => {
 
     test('LineareDynamik', () => {
         const f = 0.5;
