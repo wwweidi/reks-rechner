@@ -2,12 +2,17 @@
 import { IJahresWert } from "./Kalkulation";
 
 export class Periode {
+
     startJahr: number;
     endeJahr: number;
 
     constructor(startJahr: number, endeJahr: number) {
         this.startJahr = startJahr;
         this.endeJahr = endeJahr;
+    }
+
+    static maximum(p1: Periode, p2: Periode): Periode {
+        return new Periode(Math.min(p1.startJahr, p2.startJahr), Math.max(p1.endeJahr, p2.endeJahr));
     }
 
     enthaelt(jahr: number): boolean {

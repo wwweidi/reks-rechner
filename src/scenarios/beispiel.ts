@@ -32,7 +32,7 @@ const vater = new Person('Papa', 1971);
 einkommensteuer.addKnoten(vater);
 
 //   Periode, von jetzt bis zum regulären Renteneintritt 
-const arbeitsPeriodeVater = new Periode(2021, 2038);
+const arbeitsPeriodeVater = vater.getRestArbeitsPeriode();
 
 //   Jahresreihe, die das zu erwartende Einkommen abbildet,
 //   mit dem Durchschnittsbrutto von 2020 und jährlicher Gehaltserhöhung von 1%
@@ -44,7 +44,7 @@ const bruttoVater = new BruttoGehalt('Brutto Vater', einkommenVater, werbungskos
 vater.addKnoten(bruttoVater);
 
 //   Periode, von jetzt bis zum erwarteten Lebensende 
-const restLebensPeriodeVater = new Periode(2021, 2052);
+const restLebensPeriodeVater = vater.getRestLebensPeriode();
 
 //   Arbeitnehmeranteil am gesetzlichen Krankenkassenbeitrag
 const arbeitnehmerAnteilGKV = new LineareDynamik(0.073); // 7,3%
@@ -67,7 +67,7 @@ vater.addKnoten(new GesetzlRentenVersicherung("gesetzl. RentenVers Vater", brutt
 
 let mutter = new Person("Mutter", 1972);
 einkommensteuer.addKnoten(mutter);
-let arbeitsPeriodeMutter = new Periode(2021, 2037);
+let arbeitsPeriodeMutter = mutter.getRestArbeitsPeriode();
 let bruttoMutter = new BruttoGehalt("Brutto Mutter", JahresReihe.berechneDynamischeReihe(arbeitsPeriodeMutter, 1750*12, new LineareDynamik(1.0)), JahresReihe.konstanteReihe(arbeitsPeriodeMutter, 1000));
 mutter.addKnoten(bruttoMutter);
 
