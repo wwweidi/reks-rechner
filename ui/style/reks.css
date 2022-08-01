@@ -1,0 +1,41 @@
+* {
+    font-family:  sans-serif;
+}
+
+.erwachsener{
+    display: inline-block;
+}
+
+label.frm {
+    width: 18rem;
+    display: inline-block;
+    text-align: right;
+    margin: 0.4rem;
+}
+
+input.frm {
+    margin-left: 1rem;
+    padding: 0.2rem;
+    border-radius: 0.4em;
+    border-width: 1px;
+    border-style: groove;
+}
+
+.frm_radio {
+    margin-left: 1rem;
+}
+
+fieldset.fs_kind  {
+}
+
+fieldset {
+    background-color: lightyellow;
+    width: 36rem;
+}
+body {
+    background-color: azure;
+}
+
+th {
+    width: min-content;
+}

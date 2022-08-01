@@ -2,6 +2,7 @@ import { Knoten, SteuerWerte, VermoegensWerte, IJahresWert } from "../../base/Ka
 import { Periode } from "../../base/Reihen";
 
 export class Person extends Knoten {
+
     geburtsjahr: number;
 
     constructor(name: string, geburtsjahr: number) {
@@ -29,17 +30,21 @@ export class Person extends Knoten {
     }
 
     private getRestLebensErwartung(): number {
-        return Math.round(this.getAlter()/20 + Math.max(85, this.getAlter()));
+        return Math.round(this.getAlter()/20 + Math.max(85, this.getAlter()) - this.getAlter());
     }
 
     getRestArbeitsPeriode(): Periode {
-        let rentenAlter = Person.getRegulaeresRenteneintrittsalter(this.geburtsjahr);
-        return new Periode(this.getAktuellesJahr(), this.geburtsjahr + rentenAlter);
+        return new Periode(this.getAktuellesJahr(), this.getRentenBeginn()-1);
     }
 
     getRestLebensPeriode(): Periode{
         const aktuellesJahr = new Date().getFullYear();
         return new Periode(aktuellesJahr, aktuellesJahr + this.getRestLebensErwartung() )
+    }
+
+    getRentenBeginn(): number {
+        const rentenAlter = Person.getRegulaeresRenteneintrittsalter(this.geburtsjahr);
+        return this.geburtsjahr + rentenAlter;
     }
 }
 
@@ -49,7 +54,9 @@ export class Kind extends Person {
     kinderFreibetrag: IJahresWert;
     kinderbetreuungskosten: IJahresWert;
 
-    constructor(name: string, geburtsjahr: number, kindergeldSatz: number, kinderFreibetrag: IJahresWert, kinderbetreuungskosten: IJahresWert, kindergeldEndeAlter: number = 25) {
+    constructor(name: string, geburtsjahr: number, kindergeldSatz: number, kinderFreibetrag: IJahresWert, 
+                kinderbetreuungskosten: IJahresWert, kindergeldEndeAlter: number = 25) {
+
         super(name, geburtsjahr);
         this.kindergeldSatz = kindergeldSatz;
         this.kinderFreibetrag = kinderFreibetrag;
@@ -77,7 +84,7 @@ export class Kind extends Person {
     }
 
     getSpalten() {
-        return ["Kindergeld"];
+        return ["Kindergeld " + this.name];
     }
 
     getZahlen(jahr: number){

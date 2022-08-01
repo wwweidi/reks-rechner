@@ -3,9 +3,9 @@
     "exclude": ["node_modules", "./**/*.test.*", "src/scenarios"],
     "compilerOptions": {
       "target": "ES6",
-      "module": "amd", //commonjs, amd
+      "module": "amd", //commonjs (for node), amd (with requirejs), esnext (native browser?)
       "sourceMap": false,
       "outDir": "./ui/script",
-      "moduleResolution": "node"
+      "typeRoots": []
     }
 }

@@ -1,0 +1,26 @@
+
+name: Build and Deploy to Pages
+#on: [push] # defaults to master
+on:
+  push:
+    branches:
+      - ui
+
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install and Build 🔧
+        run: |
+          npm install
+          npm run build:ui
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ui # The folder the action should deploy.
