@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>REKS-Rechner</title>
+</head>
+<body>
+
+<script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+    crossorigin="anonymous">
+</script>
+<script src="js/rechner.js" defer></script>
+
+<h1>Willkommen bei REKS, einem Renten-, Einkommen- , Krankenversicherung- und Steuerrechner</h1>
+
+<label for="geburtsjahr-e1">Geburtsjahr des ersten Erwachsenen</label>
+<input type="number" id="geburtsjahr-e1" min="1900" max="2100" value="1968" class="recalc">
+
+<label for="starteinkommen-e1">Starteinkommen des ersten Erwachsenen</label>
+<input type="number" id="starteinkommen-e1" min="0" max="10000000" value="30000" class="recalc">
+<!--input type="button" value="Erwachsenen hinzuf&uuml;gen"-->
+
+
+<table id="tabelle">
+<thead >
+    <tr>
+        <th>Jahr</th>
+        <th>Brutto E1</th>
+    </tr>
+</thead>
+<tbody>
+    <tr id="template">
+        <td class="jahr">1900</td>
+        <td class="einkommen">0</td>
+    </tr>
+
+</tbody>
+</table>
+
+</body>
+</html>

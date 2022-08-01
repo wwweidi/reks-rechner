@@ -48,6 +48,7 @@ export class GesetzlicheRente extends Knoten implements IJahresWert {
     rentenPunkte: number;
     rentenWerte: IJahresWert;
     rentenFreibetrag: number = 0;
+    rentenBeginn: number;
 
     /**
      * 
@@ -61,13 +62,14 @@ export class GesetzlicheRente extends Knoten implements IJahresWert {
         this.rentenPunkte = rentenPunkte;
         this.rentenWerte = rentenWerte;
         this.rentenFreibetrag = this.berechneRentenFreibetrag(rentenBeginn);
+        this.rentenBeginn = rentenBeginn;
     }
     getWertFuerJahr(jahr: number): number {
         return this.getRente(jahr);
     }
 
     getRente(jahr: number): number {
-        return this.rentenPunkte * this.rentenWerte.getWertFuerJahr(jahr) * 12;
+        return jahr>=this.rentenBeginn ? this.rentenPunkte * this.rentenWerte.getWertFuerJahr(jahr) * 12 : 0;
     }
 
     getSteuerWerte(jahr: number): SteuerWerte {

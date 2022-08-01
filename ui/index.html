@@ -1,22 +1,362 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TypeScript for the web</title>
+    <link rel="stylesheet" href="style/reks.css">
+<title>REKS-Rechner</title>
 </head>
+
 <body>
-    <script " src="./require.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
+    <script>
+        function $(sel) {
+            return document.querySelector(sel);
+        }
+    </script>
+    
+
+
+    <h1>Willkommen bei REKS, einem Renten-, Einkommen- , Krankenversicherung- und Steuerrechner</h1>
+
+    <div>
+        <h2>Neue Berechnung</h2>
+
+    </div>
+
+        <div  id="berechnung_frm">
+            <fieldset>
+            <label for="iptBerechngName" class="frm">Bezeichnung (z.B. Familienname)</label>
+            <input type="text" name="iptBerechngName" id="iptBerechngName" class="frm">
+            </fieldset>
+
+            <fieldset class="erwachsener">
+                <legend>Erwachsener (1)</legend>
+                <div>
+                <label for="name_erw_1" class="frm">Name</label>
+                <input type="text" name="name_erw_1" id="name_erw_1" class="frm">
+                <br>
+                <label for="geb_erw_1" class="frm">Geburtsjahr </label>
+                <input type="number"  name="geb_erw_1" id="geb_erw_1" min="1960" max="2100" class="frm"><br>
+               
+                <label class="frm"> Biologisches Geschlecht</label> 
+                <label for="ipt_frau_erw_1">
+                    <input type="radio" id="ipt_frau_erw_1" name="geschlecht_1" value="frau" checked class="frm_radio">
+                    weiblich
+                </label>
+                <label for="ipt_mann_erw_1">
+                    <input type="radio" id="ipt_mann_erw_1" name="geschlecht_1" value="mann">
+                    männlich
+                </label>
+                <br>
+                <label class="frm">Anstellungsart</label>
+                    <input type="radio" id="ipt_angestellt_erw_1" name="anstellungsart_1" value="angestellt" checked class="frm_radio">
+                    <label for="ipt_angestellt_erw_1">Angestellte(r)</label>
+                    <input type="radio" id="ipt_beamter_erw_1" name="anstellungsart_1" value="beamter">
+                    <label for="ipt_beamter_erw_1">Beamte(r)</label>
+                <br>
+                <label for="gehalt_erw_1" class="frm">Jährliches Brutto-Gehalt</label>
+                <input type="number" name="gehalt_erw_1" id="gehalt_erw_1" min="0" class="frm">
+                <br>
+                <label for="rentenpkt_erw_1" class="frm">Bereits gesammelte Rentenpunkte</label>
+                <input type="number" name="rentenpkt_erw_1" id="rentenpkt_erw_1" min="0" class="frm"><br>
+                <label class="frm">Krankenversicherung</label>
+                <input type="radio" id="ipt_gkv_erw_1" name="kv_1" value="gkv" checked class="frm">
+                <label for="ipt_gkv_erw_1">(freiwillig) gesetzlich</label>
+                <input type="radio" id="ipt_pkv_erw_1" name="kv_1" value="pkv">
+                <label for="ipt_pkv_erw_1">privat</label><br>
+                </div>
+            </fieldset>
+            
+
+            <script>
+                function toggleErw() {
+                    $('#btn_erw_2').hidden=!$('#btn_erw_2').hidden;
+                    $('#fs_steuer').disabled = !$('#fs_steuer').disabled;
+                    $('#zusVeranIpt').checked = !$('#zusVeranIpt').checked;
+                    
+                    if ($('#fs_erw_2').style.display === 'inline') {
+                        $('#fs_erw_2').style.display = 'none' ; 
+                    } else {
+                        $('#fs_erw_2').style.display = 'inline' ; 
+                    }
+                }
+
+                function cloneErw() {
+                    const fs_erw = $('.erwachsener>div').cloneNode(true);
+                    fs_erw.innerHTML = fs_erw.innerHTML.replaceAll('_1','_2');
+                    $('#fs_erw_2').replaceChild(fs_erw, $('#fs_erw_2>div'));
+                }
+
+                function addErw() {
+                    cloneErw();
+                    toggleErw();
+                }
+            </script>
+
+            <fieldset class="erwachsener" id="fs_erw_2" style="display: none">
+                <legend>Erwachsener (2) 
+                    <button onclick="removeErwachsener(this)" class="delete" id="btn_x_erw_2">x</button> 
+                </legend>
+                <div/>
+                
+                <script>
+                    function removeErwachsener(node) {
+                        toggleErw();
+                    }
+                </script>
+            </fieldset>
+            <button onclick="addErw()" id="btn_erw_2">Weiterer Erwachsener</button>
+            
+            <fieldset id="fs_steuer" disabled>
+                <legend>Steuererklärung</legend>
+                <label for="zusVeranIpt" class="frm">Zusammenveranlagung</label>
+                <input type="checkbox" name="zusVeranIpt" id="zusVeranIpt" checked="false" class="frm">
+            </fieldset>
+
+
+            <fieldset id="fs_kind_#" class="fs_kind template" hidden>
+                <legend>Kind #</legend>
+                <label for="name_kind_#" class="frm">Name</label>
+                <input type="text" name="name_kind_#" id="name_kind_#" class="ipt_name_kind frm">
+                <br>
+                <label for="geb_kind_#" class="frm">Geburtsjahr</label>
+                <input type="number"  name="geb_kind_#" id="geb_kind_#" class="ipt_geb_kind frm" min="1990" max="2100">
+                <br>
+                <button onclick="removeKind(this)" class="delete">x</button>
+                
+                <script>
+                    function removeKind(node) {
+                        node.parentNode.remove();
+                        const kinder = document.querySelectorAll('.fs_kind:not(.template)');
+                        const expr = /(_kind_)(\d+)/g
+                        for (let i=0;i<kinder.length;i++){
+                            const idx = i+1;
+                            //remember values
+                            const valName = kinder[i].getElementsByClassName('ipt_name_kind')[0].value;
+                            const valGeb = kinder[i].getElementsByClassName('ipt_geb_kind')[0].valueAsNumber;
+                            kinder[i].id = 'fs_kind_' + idx;
+                            $('#fs_kind_' + idx + ' > legend').innerText = 'Kind ' + idx;
+                            kinder[i].innerHTML = kinder[i].innerHTML.replaceAll(expr, '$1'+(idx));
+                            //restore values
+                            kinder[i].getElementsByClassName('ipt_name_kind')[0].value = valName;
+                            kinder[i].getElementsByClassName('ipt_geb_kind')[0].value = valGeb;
+                        }
+                    } 
+                </script>
+            </fieldset>
+
+            <button onclick="addKind()" id="btn_addKind">Kind hinzufügen</button>
+            <script>
+                function addKind() {
+                    const fs_kind = $('.fs_kind.template')
+                    const clone = fs_kind.cloneNode(true);
+                    clone.className = clone.className.replaceAll('template', '')
+                    const cnt = document.querySelectorAll('.fs_kind').length;
+                    clone.innerHTML = clone.innerHTML.replaceAll('#', ''+cnt);
+                    clone.id = clone.id.replaceAll('#', cnt);
+                    $('#berechnung_frm').insertBefore(clone, $('#btn_addKind'));
+
+                    if (clone.style.display === 'inline') {
+                        clone.style.display = 'none' ; 
+                    } else {
+                        clone.style.display = 'inline' ; 
+                    }
+                }
+            </script>
+        
+        <button id="neueBerechnungBtn">starten</button>
+        </div>
+
 
     <script>
-        
-        require(['script/Kalkulation'], function(Kalkulation) {
-            console.log('yeah');
-            
-            let k = new Kalkulation.Knoten("Putin");
-            console.log(k)
+
+        class Erwachsener {
+            constructor() {
+                this.name = '';
+                this.geburtsJahr = null;
+                this.geschlecht = null;
+                this.anstellungsArt = null;
+                this.einkommen = 0;
+                this.rentenPunkte = 0;
+                this.krankenversicherung = null;
+            }
+        }
+
+        class Kind {
+            constructor() {
+                this.name = '';
+                this.geburtsJahr = null;
+            }
+        }
+
+        class Berechnung {
+            constructor() {
+                this.name = '';
+                this.zusammenveranlagung = false;
+                this.erw1 = null;
+                this.erw2 = null;
+                this.kinder = [];
+            }
+        }
+
+        class BerechnungDlg {
+
+            constructor() {
+                const that = this;
+                this.berechnung = new Berechnung();
+            }
+
+            getEingaben() {
+                this.berechnung.name = $('#iptBerechngName').value;
+                this.berechnung.zusammenveranlagung = $('#zusVeranIpt').checked;
+
+                this.getValuesErwachsene();
+                this.getKinder();
+
+                return this.berechnung;
+            }
+
+            getValuesErwachsene() {
+                const erws = document.querySelectorAll('.erwachsener');
+                
+                this.berechnung.erw1 = this.getErwachsener('1');
+
+                if (erws[1].style.display.indexOf('none') !== -1) {
+                    this.berechnung.erw2 = null;
+                } else {
+                    this.berechnung.erw2 = this.getErwachsener('2');
+                } 
+            }
+
+            getErwachsener(fs) {
+                const erw = new Erwachsener();
+
+                erw.name = $('#name_erw_'+fs).value;
+                erw.geburtsJahr = $('#geb_erw_'+fs).valueAsNumber;
+                erw.geschlecht = $('[name="geschlecht_'+fs+'"]:checked').value;
+                erw.anstellungsArt = $('[name="anstellungsart_'+fs+'"]:checked').value;
+                erw.einkommen = $('#gehalt_erw_'+fs).valueAsNumber;
+                erw.rentenPunkte = $('#rentenpkt_erw_'+fs).valueAsNumber;
+                erw.krankenversicherung = $('[name="kv_'+fs+'"]:checked').value;
+                return erw;
+            }
+
+            getKinder() {
+                const kinder = document.querySelectorAll('.fs_kind:not(.template)');
+                this.berechnung.kinder = [];
+                for (let i=0;i<kinder.length;i++){
+                    this.berechnung.kinder.push(this.getKind(i+1));
+                }
+            }
+
+            getKind(fs) {
+                const kind = new Kind();
+                kind.name = $('#name_kind_'+fs).value;
+                kind.geburtsJahr = $('#geb_kind_'+fs).valueAsNumber;
+                return kind;
+            }
+        }
+
+        const b = new BerechnungDlg();
+
+    </script>
+    <script>
+        requirejs([ 'script/steuer/person/Personen', 'script/base/Reihen' , 'script/steuer/BaumBuilder'], 
+                    function( Personen, Reihen,  BaumBuilder){
+
+            $('#neueBerechnungBtn').addEventListener('click', neueBerechnung);
+
+            function neueBerechnung() {
+
+                const eingaben = b.getEingaben();
+
+                const basisWerte = new BaumBuilder.BasisWerte(new Reihen.Periode(2020, 2080));
+                
+                const e1 = new BaumBuilder.PersonenAst(basisWerte, eingaben.erw1.name, eingaben.erw1.geburtsJahr);
+                const e2 = (eingaben.erw2? new BaumBuilder.PersonenAst(basisWerte, eingaben.erw2.name, eingaben.erw2.geburtsJahr) : null);
+                const periode = (e1 && e2 ? Reihen.Periode.maximum(e1.person.getRestLebensPeriode(), e2.person.getRestLebensPeriode()) : e1.person.getRestLebensPeriode());
+                const steuerBaum = new BaumBuilder.SteuerBaum(basisWerte);
+                
+                if (eingaben.erw1.einkommen) {
+                    e1.gehalt(eingaben.erw1.einkommen, eingaben.erw1.rentenPunkte);
+                }
+                
+                steuerBaum.person(e1.person);
+
+                if (e2) {                 
+                    if (eingaben.erw2.einkommen) {
+                        e2.gehalt(eingaben.erw2.einkommen, eingaben.erw2.rentenPunkte);
+                    }
+
+                    steuerBaum.person(e2.person);
+                }
+
+
+                for  (let i=0;i<eingaben.kinder.length;i++){
+                    const k = eingaben.kinder[i];
+                    const kind = new Personen.Kind(k.name, k.geburtsJahr);
+                    //e1.addKnoten(kind);
+                }
+
+                ausgabe(steuerBaum.wurzel, periode);
+            }
+
+            function ausgabe(knoten, periode) {
+                let spalten = knoten.printSpalten();
+
+                const tabHdr = $('#tabelle>thead>tr');
+
+                while (tabHdr.firstChild) {
+                    tabHdr.removeChild(tabHdr.firstChild)
+                }
+
+                let th;
+                th = document.createElement('th');
+                th.innerText = "Jahr"; 
+                tabHdr.appendChild(th);
+
+                for  (let i=0;i<spalten.length;i++){
+                    th = document.createElement('th');
+                    th.innerText = spalten[i]; 
+                    tabHdr.appendChild(th);
+                }
+
+                const tabBody = $('#tabelle>tbody');
+                
+                while (tabBody.firstChild) {
+                    tabBody.removeChild(tabBody.firstChild)
+                }
+
+                let tr, td;
+                let zahlen, zahlenHtml;
+
+                for (let j=periode.startJahr; j<=periode.endeJahr;j++) {
+                    tr = document.createElement('tr');
+                    zahlen = knoten.printZahlen(j);
+                    zahlenHtml = '<td>'+ j + '</td><td>' + zahlen.join('</td><td>') + '</td>';
+                    tr.innerHTML = zahlenHtml;
+
+                    tabBody.appendChild(tr);
+                }
+
+            }
+
         })
     </script>
+
+<table id="tabelle">
+    <thead >
+        <tr>
+            <th>Jahr</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="template">
+            <td class="jahr">1900</td>
+            <td class="einkommen">0</td>
+        </tr>
+    
+    </tbody>
+    </table>
+
 </body>
-</html>

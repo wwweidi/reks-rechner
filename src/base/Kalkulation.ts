@@ -126,7 +126,7 @@ export abstract class GenerischerKnoten implements IKnoten {
 export class Knoten extends GenerischerKnoten {
 
     getSpalten(): string[] {
-        return ["Einnahmen", "Ausgaben", "Verfügbar", "Abgezinst"]
+        return ["Einnahmen " + this.name, "Ausgaben " + this.name, "Verfügbar " + this.name, "Abgezinst " + this.name]
     }
 
     getZahlen(jahr: number, startJahr: number = 2020): number[] {
