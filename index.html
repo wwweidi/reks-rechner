@@ -12,14 +12,11 @@
             return document.querySelector(sel);
         }
     </script>
-    
-
 
     <h1>Willkommen bei REKS, einem Renten-, Einkommen- , Krankenversicherung- und Steuerrechner</h1>
 
     <div>
         <h2>Neue Berechnung</h2>
-
     </div>
 
         <div  id="berechnung_frm">
@@ -168,7 +165,6 @@
 
 
     <script>
-
         class Erwachsener {
             constructor() {
                 this.name = '';
@@ -199,7 +195,6 @@
         }
 
         class BerechnungDlg {
-
             constructor() {
                 const that = this;
                 this.berechnung = new Berechnung();
@@ -261,7 +256,7 @@
     </script>
     <script>
         requirejs([ 'script/steuer/person/Personen', 'script/base/Reihen' , 'script/steuer/BaumBuilder'], 
-                    function( Personen, Reihen,  BaumBuilder){
+                    function( Personen, Reihen, BaumBuilder){
 
             $('#neueBerechnungBtn').addEventListener('click', neueBerechnung);
 
@@ -337,9 +332,7 @@
 
                     tabBody.appendChild(tr);
                 }
-
             }
-
         })
     </script>
 
@@ -347,7 +340,6 @@
     <thead >
         <tr>
             <th>Jahr</th>
-           
         </tr>
     </thead>
     <tbody>
@@ -355,8 +347,6 @@
             <td class="jahr">1900</td>
             <td class="einkommen">0</td>
         </tr>
-    
     </tbody>
     </table>
-
 </body>
