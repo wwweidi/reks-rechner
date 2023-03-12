@@ -8,7 +8,6 @@ import { GesetzlRentenVersicherung } from "./person/einkommen/GesetzlicheRentenV
 import { GKV } from "./person/einkommen/GesetzlicheKrankenVersicherung";
 import { GesetzlicheRente } from "./person/einkommen/GesetzlicheRente";
 
-
 export class BasisWerte {
     periode: Periode;
     grundfreibetrag: JahresReihe;
@@ -26,9 +25,8 @@ export class BasisWerte {
     rentenVersicherung: LineareDynamik;
     beitragsBemessungsGrenzeRente: JahresReihe;
     durchschnittsEntgelte: JahresReihe;
-    rentenWerte: JahresReihe;
+    rentenWerteWest: JahresReihe;
     
-
     constructor(p:Periode) {
         this.periode = p;
 
@@ -47,7 +45,7 @@ export class BasisWerte {
         this.rentenVersicherung =  new LineareDynamik(0.186);
         this.beitragsBemessungsGrenzeRente = JahresReihe.berechneDynamischeReihe(new Periode(2020, 2100), 6900 * 12, new LineareDynamik(1.015));
         this.durchschnittsEntgelte = JahresReihe.berechneDynamischeReihe(p, 40500, new LineareDynamik(1.03));
-        this.rentenWerte = JahresReihe.berechneDynamischeReihe(new Periode(2020, 2100), 33.23, new LineareDynamik(1.025));
+        this.rentenWerteWest = JahresReihe.berechneDynamischeReihe(new Periode(2020, 2100), 33.23, new LineareDynamik(1.025));
     }
 }
 
@@ -82,8 +80,8 @@ export class SteuerBaum {
         return this;
     }
 
-    zusammenveranlagt(): SteuerBaum {
-        this.einkSteuer.splitting = true;
+    zusammenveranlagt(splitting: boolean = true): SteuerBaum {
+        this.einkSteuer.splitting = splitting;
         return this;
     }
 
@@ -143,7 +141,7 @@ export class PersonenAst {
         const rentenVersKnoten = new GesetzlRentenVersicherung("gesetzl. RentenVers", einkommen, rentenVers, beitragsBemessungsGrenzeRente, durchschnittsEntgelte)
         this.person.addKnoten(rentenVersKnoten);
 
-        this.rente = new GesetzlicheRente("Rente", rentenPunkte + rentenVersKnoten.getRentenPunkteGesamt(this.person.getRestArbeitsPeriode()), this.basisWerte.rentenWerte, this.person.getRentenBeginn());
+        this.rente = new GesetzlicheRente("Rente", rentenPunkte + rentenVersKnoten.getRentenPunkteGesamt(this.person.getRestArbeitsPeriode()), this.basisWerte.rentenWerteWest, this.person.getRentenBeginn());
         this.person.addKnoten(this.rente);
         return this;
     }
